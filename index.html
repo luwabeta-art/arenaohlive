@@ -16,7 +16,7 @@ document.addEventListener('keydown',function(e){var k=(e.key||'').toLowerCase(),
 /* ===== ArenaPH auto-update shell (runs before anything else) =====
    If a newer version is cached on this device it replaces this page instantly. In the background it fetches the
    latest file from your update link and caches it, so the next open (or this one, if it is still young) runs the newest version. */
-var APP_V='2026.10.13.39';
+var APP_V='2026.10.13.40';
 var UPDATE_URL='';/* optional: https link where the latest index.html is hosted. You can also paste it in Settings > Auto-update. */
 (function(){
 var T0=Date.now();
@@ -833,7 +833,45 @@ const _ev=earnV;earnV=function(){const pd=(D.pledges||[]).filter(p=>p.status==='
  <h2>💳 Pending sponsor payments</h2><div class="card">${pd.map(p=>`<div style="margin:10px 0"><b>${esc(p.name)}</b> · ₱${(+p.amount_php).toLocaleString()} · <span class="tag">${esc(p.ref)}</span><br><span class="mut">${esc((D.tours.find(t=>t.id===p.tournament_id)||{}).name||'')}</span><div style="margin-top:6px"><button class="g" onclick="pledgeOk('${p.id}',true)">Payment received</button> <button class="alt" onclick="pledgeOk('${p.id}',false)">Reject</button></div></div>`).join('')||'<span class="mut">No pending pledges.</span>'}</div>`};
 const _as=adSlot;adSlot=function(i){const h=_as(i);if(h)return h;const L=(D.sponsors||[]).filter(x=>/^https:\/\//.test(x.url||''));if(!L.length)return '';const x=L[(i||0)%L.length];
  return `<a class="sp" style="display:block;text-decoration:none" href="${esc(x.url)}" target="_blank" rel="sponsored noopener noreferrer">📢 Sponsored · <b>${esc(x.name)}</b>${x.perk?' – '+esc(x.perk):''}</a>`};
-(function(){if(lsGet('ap_wn7'))return;setTimeout(()=>{if(!me)return;openM(`<h2>🆕 What's new in ArenaPH</h2><div class="notice">🤝 Sponsor Hub: brands, people & viewers add real money to prize pools<br>🏫🏘️🏙️🗺️🇵🇭 Tournament levels: School → Barangay → City → Regional → National<br>💰 Transparent split: gifts 50% host / 30% prize / 20% ArenaPH<br>💝 Donate button + sponsor pledges with reference codes<br>📢 Confirmed sponsors rotate in ad slots<br>👑 CEO & host dashboards<br>🔓🔒 Open or Closed (invite-only) tournaments: host can choose exactly who plays<br>🛡️ Teams: create your team with logo, name, roster & details, then register it<br>🎙️ New Host wizard: slots, format, schedule, venue, rules<br>🏟️ Pro Tournament Center: bracket tree, standings, teams, schedule, prizes — each game has its own look<br>🏷️ Role badges: Admin, Host, Team Staff, Referee, Sponsor, Player<br>👤 Round profile photo + real Settings (theme, colors, size, alerts, name, password, log out)</div><button class="g" style="width:100%;margin-top:8px" onclick="lsSet('ap_wn3','1');closeM()">Got it ✕</button>`)},2500)})();
+/* ===== What's New: shows ONLY updates the user has not seen yet =====
+   To announce a new update: 1) bump APP_V at the top of the file, 2) add a new entry at the TOP of WN_LOG with v = that same version. */
+const WN_LOG=[
+ {v:'2026.10.13.40',items:['🔔 What\'s New now shows only the newest updates, not the full list every time']},
+ {v:'2026.10.13.39',items:[
+  '🤝 Sponsor Hub: brands, people & viewers add real money to prize pools',
+  '🏫🏘️🏙️🗺️🇵🇭 Tournament levels: School → Barangay → City → Regional → National',
+  '💰 Transparent split: gifts 50% host / 30% prize / 20% ArenaPH',
+  '💝 Donate button + sponsor pledges with reference codes',
+  '📢 Confirmed sponsors rotate in ad slots',
+  '👑 CEO & host dashboards',
+  '🔓🔒 Open or Closed (invite-only) tournaments: host can choose exactly who plays',
+  '🛡️ Teams: create your team with logo, name, roster & details, then register it',
+  '🎙️ New Host wizard: slots, format, schedule, venue, rules',
+  '🏟️ Pro Tournament Center: bracket tree, standings, teams, schedule, prizes — each game has its own look',
+  '🏷️ Role badges: Admin, Host, Team Staff, Referee, Sponsor, Player',
+  '👤 Round profile photo + real Settings (theme, colors, size, alerts, name, password, log out)'
+ ]}
+];
+(function(){
+ const vn=s=>String(s).split('.').map(x=>+x||0);
+ const gt=(a,b)=>{const A=vn(a),B=vn(b);for(let i=0;i<Math.max(A.length,B.length);i++){if((A[i]||0)!==(B[i]||0))return(A[i]||0)>(B[i]||0)}return false};
+ const latest=WN_LOG[0].v;
+ let seen=lsGet('ap_seen_v');
+ /* people who already tapped "Got it" on the old list count as having seen v.39 */
+ if(!seen&&(lsGet('ap_wn3')||lsGet('ap_wn7')))seen='2026.10.13.39';
+ let tries=0;
+ const t=setInterval(()=>{
+  if(++tries>20){clearInterval(t);return}
+  if(!me)return;
+  clearInterval(t);
+  /* brand-new user (nothing seen yet): show just the newest entry; otherwise only entries newer than what they saw */
+  const fresh=seen?WN_LOG.filter(e=>gt(e.v,seen)):[WN_LOG[0]];
+  if(!fresh.length)return;
+  lsSet('ap_seen_v',latest);
+  const body=fresh.map(e=>(fresh.length>1?'<b class="mut">v'+e.v+'</b><br>':'')+e.items.join('<br>')).join('<br><br>');
+  openM('<h2>🆕 What\'s new in ArenaPH</h2><div class="notice">'+body+'</div><button class="g" style="width:100%;margin-top:8px" onclick="closeM()">Got it ✕</button>');
+ },1500);
+})();
 
 
 /* ===== ArenaPH v3: circle profile photo, real Settings, log out ===== */
