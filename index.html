@@ -16,7 +16,7 @@ document.addEventListener('keydown',function(e){var k=(e.key||'').toLowerCase(),
 /* ===== ArenaPH auto-update shell (runs before anything else) =====
    If a newer version is cached on this device it replaces this page instantly. In the background it fetches the
    latest file from your update link and caches it, so the next open (or this one, if it is still young) runs the newest version. */
-var APP_V='2026.10.13.38';
+var APP_V='2026.10.13.39';
 var UPDATE_URL='';/* optional: https link where the latest index.html is hosted. You can also paste it in Settings > Auto-update. */
 (function(){
 var T0=Date.now();
@@ -2623,7 +2623,7 @@ function tick(S,off,root){const now=Date.now()+off;(root||document).querySelecto
  (root||document).querySelectorAll('.bcdt').forEach(e=>{const d=+e.dataset.dt;e.textContent=d?Math.max(0,Math.ceil((d-now)/1000)):'--'})}
 
 /* ---------- viewer side ---------- */
-function bcAttach(s){bcDetach();if(!isML(s)||typeof sb==='undefined'||!sb)return;const sh=$('#sheet');if(!sh)return;
+function bcAttach(s){bcDetach();return;if(!isML(s)||typeof sb==='undefined'||!sb)return;const sh=$('#sheet');if(!sh)return;
  const vid=sh.querySelector('.vid'),w=document.createElement('div');w.id='bcw';
  if(s.host===me.id){w.innerHTML=`<button class="g" style="width:100%;margin-bottom:8px" onclick="bcOpen('${esc(s.id)}')">🎬 Open MPL broadcast panel</button>`;(vid?vid.parentNode:sh).insertBefore(w,vid||sh.children[1]||null);return}
  w.innerHTML='<div id="bcb" class="bcb" style="display:none"></div>';if(vid)vid.parentNode.insertBefore(w,vid);else sh.insertBefore(w,sh.children[1]||null);
@@ -3220,117 +3220,6 @@ new MutationObserver(function(ms){ms.forEach(function(r){r.addedNodes.forEach(fu
 scan(d);
 })();
 </script>
-<style id="mplcss">
-.mplw{position:relative;background:#000}.mplw video{width:100%;display:block}
-.mplst{position:absolute;pointer-events:none;container-type:size;z-index:5;color:#fff;font-family:Rajdhani,Oswald,'Arial Narrow',system-ui,sans-serif;font-weight:700;text-transform:uppercase}
-.mplst *{font-size:1.5cqw;box-sizing:border-box}
-.mqT{position:absolute;top:0;left:25.5cqw;width:49cqw;display:flex;flex-direction:column;filter:drop-shadow(0 .3cqw .6cqw #000a)}
-.mqR1{display:flex;align-items:stretch;height:5.6cqw;background:#150a0cdd}
-.mqSt{flex:1;display:flex;align-items:center;justify-content:space-around;padding:0 .6cqw}
-.mqSt span{display:flex;align-items:center;gap:.4cqw}.mqSt i{font-style:normal;font-size:1.9cqw}
-.mqK{width:6.4cqw;display:flex;align-items:center;justify-content:center;font-size:4.2cqw}
-.mqD{width:9.4cqw;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0709;clip-path:polygon(0 0,100% 0,88% 100%,12% 100%);margin:0 -.5cqw;z-index:1}
-.mqD small{font-size:1.1cqw;color:#ffd24a;letter-spacing:.15cqw}.mqD span{font-size:2.4cqw;font-variant-numeric:tabular-nums}
-.mqR2{display:flex;justify-content:space-between;margin-top:.3cqw}
-.mqNm{display:flex;align-items:center;gap:.7cqw;width:20.5cqw;height:3.6cqw;padding:0 1cqw;background:#f2f2f2;color:#111;border-radius:.5cqw}
-.mqNm em{font-style:normal;padding:.2cqw .6cqw;border-radius:.3cqw;color:#fff;font-size:1.4cqw}
-.mqNm b{flex:1;font-size:2cqw;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.mqNm.r{flex-direction:row-reverse}.mqNm.r b{text-align:right}
-.mqP{display:flex;gap:.3cqw}.mqP u{width:1.3cqw;height:1.3cqw;background:#bbb}.mqP u.on{background:var(--c)}
-.mqFl{position:absolute;top:0;left:18cqw;width:7cqw;height:5.6cqw;background:#fff;display:flex;align-items:center;justify-content:center}.mqFl{font-size:3.6cqw}
-.mqIn{position:absolute;top:0;right:0;width:24.5cqw;background:#fff;color:#111}
-.mqIn .a{display:flex;justify-content:space-between;align-items:center;padding:.6cqw 1cqw;gap:1cqw}.mqIn .a small{font-size:1.1cqw;color:#555}.mqIn .a b{font-size:3cqw;color:#111}
-.mqIn .b{font-size:1.1cqw;text-align:center;padding:0 1cqw .5cqw;color:#333}
-.mqIn .c{display:flex;justify-content:space-between;align-items:center;background:#15151c;color:#fff;padding:.5cqw 1cqw}.mqIn .c *{font-size:1.2cqw}.mqIn .c em{font-style:normal;background:#c8102e;padding:.3cqw .8cqw}
-.mqS{position:absolute;top:19cqw;display:flex;flex-direction:column;gap:.5cqw}.mqS.l{left:0}.mqS.r{right:0}
-.mqL{width:14cqw;height:4.4cqw;display:flex;align-items:center;gap:.6cqw;padding:0 .6cqw;background:linear-gradient(90deg,#000b,#0000);border-left:.35cqw solid var(--c)}
-.mqS.r .mqL{flex-direction:row-reverse;text-align:right;background:linear-gradient(270deg,#000b,#0000);border-left:0;border-right:.35cqw solid var(--c)}
-.mqH{width:3.6cqw;height:3.6cqw;border-radius:50%;border:.25cqw solid var(--c);background:radial-gradient(#3a4466,#10162b);display:flex;align-items:center;justify-content:center}.mqH i{font-style:normal;font-size:1.5cqw}
-.mqY b{display:block;font-size:1.5cqw}.mqY span{font-size:1.4cqw;color:#ffd24a}
-.mqWm{position:absolute;bottom:1.5cqw;left:50%;transform:translateX(-50%);font-size:4.5cqw;letter-spacing:.2cqw;text-shadow:0 .3cqw .6cqw #000;white-space:nowrap}
-.mqB{position:absolute;right:8px;top:8px;z-index:9;background:#000a;color:#fff;border:0;border-radius:8px;padding:6px 10px;font-size:18px}
-.mqFS{position:fixed!important;inset:0;width:100vw;height:100vh;z-index:99998;background:#000;padding:0!important}
-.mqFS.mqRot{inset:auto;left:100vw;top:0;width:100vh;height:100vw;transform:rotate(90deg);transform-origin:top left}
-.mqFS video,.mplw:fullscreen video,.vid:fullscreen video{width:100%;height:100%;object-fit:contain}
-.mplw:fullscreen,.vid:fullscreen{width:100vw;height:100vh;padding:0;background:#000}
-#mqBtn{position:fixed;right:12px;bottom:90px;z-index:99990;background:#ffd24a;color:#1b1400;border:0;border-radius:24px;padding:10px 16px;font-weight:800}
-#mqP{position:fixed;left:0;right:0;bottom:0;max-height:78vh;overflow:auto;background:#12141f;color:#fff;z-index:99991;padding:12px;border-radius:16px 16px 0 0;box-shadow:0 -8px 30px #000a}
-#mqP label{display:block;font-size:11px;color:#9aa3b8;margin:6px 0 0}
-#mqP input{width:100%;padding:8px;border-radius:8px;border:1px solid #333a52;background:#1c2030;color:#fff;font-size:15px}
-#mqP input[type=color]{height:38px;padding:2px}
-.mqR{display:flex;gap:6px;flex-wrap:wrap;justify-content:space-between;align-items:center;margin:6px 0}
-.mqR button{flex:1;padding:9px;border:0;border-radius:8px;background:#2a3050;color:#fff;font-weight:700}
-.mqX{margin-top:12px;padding-top:8px;border-top:1px solid #333a52}
-</style>
-<script>
-/* MPL-style live overlay: host controls it, every viewer sees it, landscape fullscreen button on the video */
-(function(){
-if(window.__mpl)return;window.__mpl=1;
-const LS='mplS2',T=(n,t,c)=>({n,t,c,s:0,k:0,gd:0,tw:0,tt:0,lr:0,p:[1,2,3,4,5].map(i=>['Player '+i,'Hero','0/0/0'])});
-let O;try{O=JSON.parse(localStorage.getItem(LS))}catch(e){}
-O=O||{on:1,lg:'ARENAPH',hs:'#ARENAPH',sub:'REGULAR SEASON - MATCH 1 - BO5',pr:'PARTNER IN ESPORTS',cs:'CASTER 1, CASTER 2',pt:'1.0',fl:'🇵🇭',wm:'',bo:5,g:1,clk:{run:0,base:0},a:T('TEAM ALPHA','ALP','#d4141f'),b:T('TEAM BRAVO','BRV','#1f5bd4')};
-let hc=null,vc=null,vid=null,VO=null,n=0;
-const E=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const el=o=>{const c=o.clk||{};return (c.base||0)+(c.run?(Date.now()-(c.at||Date.now()))/1000:0)};
-const clock=o=>{const s=Math.max(0,el(o)|0);return String(s/60|0).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
-const gk=v=>((+v||0)/1000).toFixed(1)+'k';
-function ov(o){const need=Math.ceil((o.bo||5)/2);
- const it=x=>[`🏰<i>${+x.tw||0}</i>`,`🐢<i>${+x.tt||0}</i>`,`👹<i>${+x.lr||0}</i>`,`🪙<i>${gk(x.gd)}</i>`];
- const st=(x,r)=>`<div class="mqSt">${(r==='r'?it(x).reverse():it(x)).map(h=>`<span>${h}</span>`).join('')}</div>`;
- const kk=x=>`<b class="mqK" style="background:${E(x.c)}">${+x.k||0}</b>`;
- const nm=(x,r)=>`<div class="mqNm ${r}" style="--c:${E(x.c)}"><em style="background:${E(x.c)}">${E(x.t)}</em><b>${E(x.n)}</b><span class="mqP">${Array.from({length:need},(_,i)=>`<u class="${i<x.s?'on':''}"></u>`).join('')}</span></div>`;
- const sd=(x,r)=>`<div class="mqS ${r}" style="--c:${E(x.c)}">${x.p.map(p=>`<div class="mqL"><div class="mqH"><i>${E((p[1]||'?').slice(0,2))}</i></div><div class="mqY"><b>${E(p[0])}</b><span>${E(p[2]||'0/0/0')}</span></div></div>`).join('')}</div>`;
- return `<div class="mqFl">${E(o.fl)}</div><div class="mqT"><div class="mqR1">${st(o.a,'l')}${kk(o.a)}<div class="mqD"><small>${E(o.lg)}</small><span>${clock(o)}</span></div>${kk(o.b)}${st(o.b,'r')}</div><div class="mqR2">${nm(o.a,'l')}${nm(o.b,'r')}</div></div><div class="mqIn"><div class="a"><small>${E(o.pr)}</small><b>${E(o.hs)}</b></div><div class="b">${E(o.sub)}</div><div class="c"><span>🎙 ${E(o.cs)}</span><em>PATCH ${E(o.pt)}</em></div></div>${sd(o.a,'l')}${sd(o.b,'r')}${o.wm?`<div class="mqWm">${E(o.wm)}</div>`:''}`}
-function mount(w){if(getComputedStyle(w).position==='static')w.style.position='relative';
- let s=w.querySelector(':scope>.mplst');if(!s){s=document.createElement('div');s.className='mplst';w.appendChild(s);const b=document.createElement('button');b.className='mqB';b.textContent='⛶';b.onclick=e=>{e.stopPropagation();fs(w)};w.appendChild(b)}
- const W=w.clientWidth,H=w.clientHeight;let a=W,b=W*9/16;if(b>H){b=H;a=H*16/9}
- Object.assign(s.style,{width:a+'px',height:b+'px',left:(W-a)/2+'px',top:(H-b)/2+'px'});return s}
-function draw(w,o){const s=mount(w);if(!o||!o.on){s.style.display='none';return}s.style.display='';s.innerHTML=ov(o)}
-async function fs(w){
- if(document.fullscreenElement||w.classList.contains('mqFS')){w.classList.remove('mqFS','mqRot');try{await document.exitFullscreen()}catch(e){}try{screen.orientation.unlock()}catch(e){}return}
- try{await (w.requestFullscreen||w.webkitRequestFullscreen).call(w)}catch(e){}
- try{await screen.orientation.lock('landscape')}catch(e){}
- setTimeout(async()=>{if(document.fullscreenElement&&innerHeight>innerWidth){try{await document.exitFullscreen()}catch(e){}}
-  if(!document.fullscreenElement)w.classList.add('mqFS');if(innerHeight>innerWidth)w.classList.add('mqRot')},350)}
-addEventListener('resize',()=>document.querySelectorAll('.mqFS').forEach(w=>w.classList.toggle('mqRot',innerHeight>innerWidth)));
-const rmc=c=>{try{sb.removeChannel(c)}catch(e){}};
-const snap=()=>{const o=JSON.parse(JSON.stringify(O));o.clk={run:O.clk.run,base:el(O)};return o};
-function send(){if(hc)try{hc.c.send({type:'broadcast',event:'st',payload:snap()})}catch(e){}}
-function hostCh(id){if(hc&&hc.id===id)return;if(hc)rmc(hc.c);const c=sb.channel('mpl:'+id,{config:{broadcast:{self:false}}});
- c.on('broadcast',{event:'req'},send).subscribe(s=>{if(s==='SUBSCRIBED')send()});hc={id,c}}
-function viewCh(id){if(vc)rmc(vc.c);const c=sb.channel('mpl:'+id,{config:{broadcast:{self:false}}});
- c.on('broadcast',{event:'st'},({payload})=>{payload.clk=Object.assign({},payload.clk,{at:Date.now()});VO=payload})
-  .subscribe(s=>{if(s==='SUBSCRIBED')c.send({type:'broadcast',event:'req',payload:{}})});vc={id,c};VO=null}
-const save=()=>{try{localStorage.setItem(LS,JSON.stringify(O))}catch(e){}send()};
-const get=k=>k.split('.').reduce((x,p)=>x[p],O);
-const set=(k,v)=>{const a=k.split('.'),l=a.pop();a.reduce((x,p)=>x[p],O)[l]=v};
-function panel(){let p=document.getElementById('mqP');if(p){p.remove();return}
- p=document.createElement('div');p.id='mqP';
- const f=(k,l,t)=>`<label>${l}<input data-k="${k}" type="${t||'text'}" value="${E(get(k))}"></label>`;
- const tm=(x,L)=>`<div class="mqX"><b>${L}</b>${f(x+'.n','Team name')}${f(x+'.t','Short tag (ALP)')}${f(x+'.c','Color','color')}${f(x+'.s','Series wins','number')}${f(x+'.k','Kills','number')}${f(x+'.gd','Gold (e.g. 46300)','number')}${f(x+'.tw','Towers','number')}${f(x+'.tt','Turtles','number')}${f(x+'.lr','Lords','number')}${[0,1,2,3,4].map(i=>f(`${x}.p.${i}.0`,'Player '+(i+1))+f(`${x}.p.${i}.1`,'Hero '+(i+1))+f(`${x}.p.${i}.2`,'K/D/A '+(i+1))).join('')}</div>`;
- p.innerHTML=`<div class="mqR"><b>📺 MPL overlay</b><button data-a="x" style="flex:0 0 44px">✕</button></div><div class="mqR"><button data-a="clk">⏯ Clock</button><button data-a="rst">⟲ Reset</button><button data-a="ng">Next game</button><button data-a="on">Show/Hide</button></div>${f('lg','League short name')}${f('hs','Hashtag / title')}${f('sub','Match line (Regular Season - Match 17 - BO3)')}${f('pr','Partner line')}${f('cs','Casters')}${f('pt','Patch')}${f('fl','Flag emoji')}${f('wm','Watermark text (bottom)')}${f('bo','Best of','number')}${f('g','Game #','number')}${tm('a','TEAM A (left)')}${tm('b','TEAM B (right)')}`;
- p.oninput=e=>{const t=e.target,k=t.dataset.k;if(!k)return;set(k,t.type==='number'?(+t.value||0):t.value);save()};
- p.onclick=e=>{const a=e.target.dataset.a;if(!a)return;const c=O.clk;
-  if(a==='x')return p.remove();
-  if(a==='clk'){if(c.run){c.base=el(O);c.run=0}else{c.at=Date.now();c.run=1}}
-  if(a==='rst')O.clk={run:0,base:0};
-  if(a==='ng'){O.g=(+O.g||1)+1;O.a.k=O.b.k=O.a.gd=O.b.gd=0;O.clk={run:0,base:0}}
-  if(a==='on')O.on=O.on?0:1;
-  save();const y=p.scrollTop;p.remove();panel();document.getElementById('mqP').scrollTop=y};
- document.body.appendChild(p)}
-setInterval(()=>{try{
- const h=typeof HL!=='undefined'&&HL&&document.getElementById('hvid');
- if(h){let w=h.parentNode;if(!w.classList.contains('mplw')){w=document.createElement('div');w.className='mplw';h.parentNode.insertBefore(w,h);w.appendChild(h)}
-  hostCh(HL.s.id);draw(w,O);if(!document.getElementById('mqBtn')){const b=document.createElement('button');b.id='mqBtn';b.textContent='📺 Overlay';b.onclick=panel;document.body.appendChild(b)}
-  if(++n%7===0)send()}
- else{if(hc){rmc(hc.c);hc=null}const b=document.getElementById('mqBtn');if(b)b.remove();const p=document.getElementById('mqP');if(p)p.remove()}
- const v=document.getElementById('lv');
- if(v&&vid){v.removeAttribute('controls');draw(v.parentNode,VO)}}catch(e){}},700);
-const sv=window.startViewer,sp=window.stopViewer;
-window.startViewer=function(s){const r=sv(s);vid=s.id;viewCh(s.id);return r};
-window.stopViewer=function(){const r=sp.apply(this,arguments);if(vc){rmc(vc.c);vc=null}vid=null;VO=null;return r};
-})();
-</script>
 <script>
 /* ===== ArenaPH esports broadcast overlay (MPL / MLBB look) =====
    Drawn on top of the live video for viewers + host preview. Works for browser AND Android native screen live.
@@ -3490,4 +3379,57 @@ setInterval(run,2000);run();
 })();
 </script>
 
+<style id="apmlbb">
+/* ===== MLBB broadcast look v3: one overlay, landscape fullscreen for host + viewers ===== */
+.o-sc{background:linear-gradient(#b3141f,#5e0a12);border-top:.15cqw solid #ff4d5e}
+.o-strip{background:linear-gradient(#241016,#0d0709)}
+.o-wm{color:#fff;-webkit-text-stroke:.12cqw #000;paint-order:stroke fill}
+.apw,.apw *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.apw video,.vid video#lv{pointer-events:none}
+.apfs{width:42px!important;height:42px!important;font-size:21px!important;right:8px!important;bottom:8px!important;z-index:6!important;pointer-events:auto}
+.apFS{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;z-index:2147483600!important;background:#000!important;padding:0!important;margin:0!important;border-radius:0!important}
+.apFS.apRot{inset:auto!important;left:100vw!important;top:0!important;width:100vh!important;height:100vw!important;transform:rotate(90deg);transform-origin:top left}
+.apFS video{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important;max-height:none!important}
+.apFS .apfs{display:none!important}
+.apx{position:absolute;top:8px;right:8px;z-index:9;width:40px;height:40px;border-radius:50%;border:1px solid #fff5;background:#000a;color:#fff;font-size:18px;padding:0;display:none;pointer-events:auto}
+.apFS .apx,.apw:fullscreen .apx,.vid:fullscreen .apx{display:block}
+.apw:fullscreen,.vid:fullscreen{width:100vw;height:100vh;padding:0!important;background:#000}
+</style>
+<script>
+(function(){
+'use strict';
+var d=document;
+function inFS(b){return d.fullscreenElement===b||d.webkitFullscreenElement===b||b.classList.contains('apFS')}
+function exit(b){b.classList.remove('apFS','apRot');
+ try{if(d.fullscreenElement||d.webkitFullscreenElement)(d.exitFullscreen||d.webkitExitFullscreen).call(d)}catch(e){}
+ try{screen.orientation&&screen.orientation.unlock&&screen.orientation.unlock()}catch(e){}}
+function enter(b){
+ var v=b.querySelector('video');if(v&&v.id==='lv'){v.muted=false;try{v.play()}catch(e){}}
+ var rq=b.requestFullscreen||b.webkitRequestFullscreen,p;
+ try{p=rq&&rq.call(b)}catch(e){}
+ Promise.resolve(p).catch(function(){}).then(function(){try{return screen.orientation.lock('landscape')}catch(e){}}).catch(function(){}).then(function(){
+  setTimeout(function(){
+   var fs=d.fullscreenElement||d.webkitFullscreenElement;
+   if(fs&&innerHeight>innerWidth){try{(d.exitFullscreen||d.webkitExitFullscreen).call(d)}catch(e){}fs=null}
+   if(!fs)b.classList.add('apFS');
+   b.classList.toggle('apRot',innerHeight>innerWidth);
+  },400)})}
+window.apFull=function(b){inFS(b)?exit(b):enter(b)};
+function resize(){d.querySelectorAll('.apFS').forEach(function(b){b.classList.toggle('apRot',innerHeight>innerWidth)})}
+addEventListener('resize',resize);addEventListener('orientationchange',function(){setTimeout(resize,300)});
+['fullscreenchange','webkitfullscreenchange'].forEach(function(t){d.addEventListener(t,function(){
+ if(!(d.fullscreenElement||d.webkitFullscreenElement))d.querySelectorAll('.apw,.vid').forEach(function(b){b.classList.remove('apFS','apRot')})})});
+function wire(){
+ var hv=d.getElementById('hvid');
+ if(hv&&hv.parentNode&&hv.parentNode.classList.contains('apw'))prep(hv.parentNode);
+ var lv=d.getElementById('lv');
+ if(lv){lv.removeAttribute('controls');lv.controls=false;lv.setAttribute('controlsList','nofullscreen nodownload noremoteplayback');lv.disablePictureInPicture=true;prep(lv.parentNode)}}
+function prep(b){
+ var f=b.querySelector('.apfs');
+ if(!f){f=d.createElement('button');f.className='apfs';f.textContent='⛶';b.appendChild(f)}
+ if(!f._m){f._m=1;f.title='Landscape fullscreen';f.onclick=function(e){e.stopPropagation();e.preventDefault();window.apFull(b)}}
+ if(!b.querySelector('.apx')){var x=d.createElement('button');x.className='apx';x.textContent='✕';x.onclick=function(e){e.stopPropagation();window.apFull(b)};b.appendChild(x)}}
+setInterval(function(){try{wire()}catch(e){}},700);
+})();
+</script>
 </body></html>
